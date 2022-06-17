@@ -13,8 +13,7 @@ const publicKeyCredentialCreationOptions = { // 서버에 의해 지정된 여�
 	 * id는 현재 브라우저에 있는 도메인의 하위 집합이어야 합니다.
 	 */
     user: {
-        id: Uint8Array.from(
-            "UZSL85T9AFC", c => c.charCodeAt(0)),
+        id: Uint8Array.from("UZSL85T9AFC", c => c.charCodeAt(0)),
         name: "lee@webauthn.guide",
         displayName: "Lee",
     },
