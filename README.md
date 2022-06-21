@@ -46,7 +46,7 @@
 18. 지원되는 WebAuthn 증명문 형식 식별자 값 집합에 대해 USASCII 대소문자 구분 일치를 수행하여 증명문 형식 결정. 등록된 WebAuthn 증명서 형식 식별자 값의 최신 목록은 [RFC8809]에 의해 설정된 IANA "WebAuthn 증명서 형식 식별자" 레지스트리 [IANA-WebAuthn-Registies]에 유지됩니다.
 
 19. attStmt, authData 및 해시가 주어진 증명문 형식 fmt의 검증 절차를 사용하여 attStmt가 유효한 증명 서명을 전달하는 올바른 증명문인지 확인하십시오.
-19-1. 각 증명문 형식은 자체 검증 절차를 지정합니다. 초기 정의된 형식에 대해서는 ⁇ 8 정의된 증명문 형식을, 최신 목록에 대해서는 [IANA-WebAuthn-Registries]를 참조하십시오.
+	1. 각 증명문 형식은 자체 검증 절차를 지정합니다. 초기 정의된 형식에 대해서는 정의된 증명문 형식을, 최신 목록에 대해서는 [IANA-WebAuthn-Registries]를 참조하십시오.
 
 20. 검증에 성공한 경우 해당 증명 유형에 대해 허용되는 신뢰 앵커 목록(예: 증명 루트 인증서)과 신뢰할 수 있는 원본 또는 정책에서 증명문 형식을 가져옵니다. 예를 들어 FIDO Metadata Service(FIDO 메타데이터 서비스)는 authData에서 증명된 CredentialData의 aaid를 사용하여 이러한 정보를 얻을 수 있는 한 가지 방법을 제공합니다.
 
@@ -61,7 +61,7 @@
 	1. 종속 당사자 시스템에 적합한 경우 사용자 계정을 authData.attestedCredentialData의 credentialId 및 credentialPublicKey와 연결합니다.
 	2. credentialId를 authData.signCount 값으로 초기화된 새 저장된 서명 카운터 값과 연결합니다. 또는 credentialId를 credential.response.getTransports()를 호출하여 반환되는 전송 힌트와 연결합니다. 이 값은 저장하기 전이나 후에 수정하면 안 됩니다. 클라이언트가 적합한 인증자를 찾는 방법을 알 수 있도록 이 값을 사용하여 향후 get() 호출에서 allowCredentials 옵션의 전송을 채우는 것이 좋습니다.
 
-24. 증명문 attStmt가 성공적으로 검증되었지만 위의 21 단계에 따라 신뢰할 수없는 경우, Relying Party는 등록에 실패해야 합니다.
+24. 증명문 attStmt가 성공적으로 검증되었지만 위의 21단계에 따라 신뢰할 수없는 경우, Relying Party는 등록에 실패해야 합니다.
 	1. 그러나 정책에 의해 허용되는 경우, 신뢰 당사자는 자격 증명 ID 및 자격 증명 공개 키를 등록할 수 있지만 자격 증명을 자체 증명이 있는 것으로 취급할 수 있습니다(6.5.3 증명 유형 참조). 그렇게하면, Relying Party는 공개 키 자격 증명이 특정 인증자 모델에 의해 생성되었다는 암호 증명이 없다고 주장합니다. 자세한 내용은 [FIDOsecRef] 및 [UAFProtocol]을 참조하십시오.
 
 증명 개체를 확인하려면 위 20단계에서 신뢰할 수 있는 신뢰 앵커를 결정하는 신뢰할 수 있는 방법이 있어야 합니다. 또한 인증서를 사용하는 경우, 종속 당사자는 중간 CA 인증서에 대한 인증서 상태 정보에 액세스할 수 있어야 합니다. 클라이언트가 증명 정보에 이 체인을 제공하지 않은 경우 종속 당사자도 증명 인증서 체인을 작성할 수 있어야 합니다.
@@ -71,7 +71,7 @@
 1. Relying Party의 필요에 따라 PublicKeyCredentialRequestOptions를 설정해 옵션으로 지정합니다.
 	1. options.allowCredentials가 존재하는 경우, 각 항목의 전송 멤버는 해당 자격 증명이 등록되었을 때 credential.response.getTransports()에 의해 반환된 값으로 설정되어야 합니다.
 
-2. navigator.credentials.get() 및 pass 옵션을 publicKey 옵션으로 호출합니다. 자격 증명이 성공적으로 해결된 약속의 결과가 되도록 합니다. 약속이 거부된 경우, 사용자가 볼 수 있는 오류로 의식을 중단하거나 거부된 약속에서 사용 가능한 컨텍스트에서 결정할 수 있는 대로 사용자 경험을 안내하십시오. 서로 다른 오류 컨텍스트 및 그로 이어지는 상황에 대한 정보는 6.3.3 인증자 GetAssertion Operation을 참조하십시오.
+2. navigator.credentials.get() 및 pass 옵션을 publicKey 옵션으로 호출합니다. 자격 증명이 성공적으로 해결된 약속의 결과가 되도록 합니다. 약속이 거부된 경우, 사용자가 볼 수 있는 오류로 의식을 중단하거나 거부된 약속에서 사용 가능한 컨텍스트에서 결정할 수 있는 대로 사용자 경험을 안내하십시오. 서로 다른 오류 컨텍스트 및 그로 이어지는 상황에 대한 정보는 인증자 GetAssertion Operation을 참조하십시오.
 
 3. 응답을 credential.response로 지정합니다. 응답이 AuthenticatorAssertionResponse의 인스턴스가 아닌 경우 사용자가 볼 수 있는 오류로 세리머니를 중단합니다.
 
@@ -115,7 +115,8 @@
 19. SHA-256을 사용하여 cData에 대한 해시를 계산한 결과가 해쉬라고 하자.
 
 20. credential PublicKey를 사용하여 authData와 해시의 이진 연결에 대한 시그니처가 유효한지 확인합니다.
-	1. 이 검증 단계는 FIDO U2F 인증자에 의해 생성된 서명과 호환된다. 6.1.2 FIDO U2F Signature Format Compatibility 참조.
+	1. 이 검증 단계는 FIDO U2F 인증자에 의해 생성된 서명과 호환된다.
+	2. FIDO U2F Signature Format Compatibility 참조.
 
 21. storedSignCount를 credential.id과 연결된 저장된 시그니처 카운터 값으로 설정합니다. authData.signCount가 0이 아니거나 storedSignCount가 0이 아닌 경우 다음 하위 단계를 실행합니다.
 	1. 만약 authdata.signcount가 저장된 SignCount보다 크다면 저장된 SignCount를 authData.signCount의 값으로 업데이트합니다.
