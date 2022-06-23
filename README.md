@@ -2,6 +2,8 @@
 
 ## create flow
 
+![Sequence diagrams](https://github.com/dc-choi/WebAuthn_study/blob/master/img/reg.png)
+
 1. Relying Party의 필요에 따라 PublicKeyCredentialCreationOptions를 설정해 옵션으로 지정합니다.
 
 2. navigator.credentials.create()를 호출하고 옵션을 공용 키 옵션으로 전달합니다. 성공적으로 해결된 약속의 결과가 자격 증명이 되도록 하십시오.
@@ -67,6 +69,8 @@
 증명 개체를 확인하려면 위 20단계에서 신뢰할 수 있는 신뢰 앵커를 결정하는 신뢰할 수 있는 방법이 있어야 합니다. 또한 인증서를 사용하는 경우, 종속 당사자는 중간 CA 인증서에 대한 인증서 상태 정보에 액세스할 수 있어야 합니다. 클라이언트가 증명 정보에 이 체인을 제공하지 않은 경우 종속 당사자도 증명 인증서 체인을 작성할 수 있어야 합니다.
 
 ## get flow
+
+![Sequence diagrams](https://github.com/dc-choi/WebAuthn_study/blob/master/img/auth.png)
 
 1. Relying Party의 필요에 따라 PublicKeyCredentialRequestOptions를 설정해 옵션으로 지정합니다.
 	1. options.allowCredentials가 존재하는 경우, 각 항목의 전송 멤버는 해당 자격 증명이 등록되었을 때 credential.response.getTransports()에 의해 반환된 값으로 설정되어야 합니다.
