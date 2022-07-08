@@ -8,25 +8,37 @@
 	1. 등록 및 증명
 
 	서버가 등록을 지원합니다.
+
 	등록 요청은 인증자에게 챌린지를 보내고 응답으로 CredentialCreationOptions 객체 (또는 이와 유사한)를 수신하는 형식을 취합니다.
+
 	PublicKeyCredential의 응답 특성에는 직렬화된 clientDataJSON 특성과 직렬화된 attestationObject 특성이 모두 포함됩니다.
+
 	역직렬화 시 증명 시 서명된 것과 기본 바이트 구조가 동일하게 유지된다는 점을 제외하고는 직렬화 형식(예: - base64url encoding)에 대한 요구사항은 없습니다.
 
 	2-1. 증명 확인
 
 	서버는 증명 유효성을 검사해야 합니다.
+
 	[WebAuthn] 문서에서 증명의 유효성을 확인하는 방법을 지정합니다.
+
 	Relying Party에 대한 요구사항은 서버에 대해 규범적입니다.
+
 	증명 응답의 필드는 [WebAuthn] 규격의 필드 이름 또는 형식과 일치하지 않을 수 있습니다.
+
 	응용프로그램 및 서버는 자체 필드 형식 및 이름을 협상할 수 있습니다.
+
 	[WebAuthn] 에 설명된 이름 및 형식은 편의를 위한 것입니다.
+
 	서버는 증명 인증서 체인의 유효성을 검사해야 합니다.
+
 	서버는 [FIDO 메타데이터 서비스] 를 통한 증명 검증을 지원해야 합니다.
+
 	서버는 메타데이터 속성을 기반으로 인증자에 대해 추가 인증 요소를 허용하거나, 허용하지 않거나, 요구하거나, 위험 분석을 수행하는 정책을 가질 수 있습니다.
 
 	2.2 증명 타입
 
 	[WebAuthn] 은 여러 증명 유형을 정의합니다.
+
 	서버는 증명 형식 중 하나를 지원해야 합니다.
 
 	서버가 기본 증명을 지원해야 합니다.
@@ -37,6 +49,7 @@
 	2.3 증명 형식
 
 	[WebAuthn] 은 여러 증명 형식을 정의하며, [WebAuthn] 에코시스템이 발전함에 따라 추가 증명 형식을 추가하기 위해 때때로 업데이트될 수 있습니다.
+
 	서버는 하나 이상의 증명 형식을 지원해야 합니다.
 
 	서버는 Packed Attestation을 지원해야 합니다.
@@ -61,10 +74,15 @@
 	3. 인증 및 증명
 
 	서버는 인증을 지원해야 합니다.
+
 	서버는 각 인증 요청에 대해 무작위 challenges 값을 사용해야 한다.
+
 	challenges 값의 무작위성을 결정하는 것은 본 명세서의 범위를 벗어나지만(자세한 내용은 [FIDOSecRef] 참조), 동일한 challenges 값, 단조롭게 증가하는 challenges 값 또는 기타 간단한 challenges 값은 허용되지 않으며 안전하지 않으며 challenges 값 생성에 암호적으로 안전한 난수 생성기가 사용될 것으로 예상된다.
+
 	서버가 assertion signatures의 유효성을 검사합니다.
+
 	assertion signatures을 수신한 서버는 [WebAuthn] 에 정의된 절차를 사용하여 assertion signatures을 검증해야 합니다.
+
 	서버는 TUP/기타 사용자 확인을 검증해야 합니다.
 
 	4. 통신 채널 요구사항
@@ -74,15 +92,20 @@
 	5. 확장자
 
 	운영 환경에 배포할 때 이러한 방식으로 구성해야 하는 요구 사항은 없지만, 서버는 어떠한 확장도 존재하지 않고 등록 및 인증을 수행할 수 있는 동작 모드를 가져야 한다.
+
 	서버는 확장을 지원할 수 있습니다.
 	서버는 FIDO U2F와의 하위 호환성을 위해 AppId를 지원해야 합니다.
+
 	브라우저, 플랫폼 및 기타 클라이언트는 확장을 지원하거나 지원하지 않을 수 있습니다.
+
 	서버가 새로운 확장을 구현하는 경우 [WebAuthn]에 등록해야 합니다.
 
 	6. 기타
 
 	signature는 rawData 필드를 통해 계산됩니다.
+
 	서버는 아래의 알고리즘을 필수로 구현해야합니다.
+
 	서버는 다른 알고리즘을 구현할 수도 있습니다.
 
 	Name: RS1
@@ -104,6 +127,7 @@
 	Status: Required
 
 	서버는 필수로 표시된 아래 곡선을 구현해야합니다.
+
 	서버는 다른 곡선을 구현할 수도 있습니다.
 
 	Name: P-256
@@ -113,20 +137,27 @@
 	Status: Required
 
 	설계상, 이 글 작성 시점 현재 인증자가 실제로 사용하고 있는 알고리즘과 곡선만 필수 알고리즘 및 곡선 목록에 포함됩니다.
+
 	가능한 미래의 암호화 개발을 위해 미리 준비하고자하는 서버는 필수 알고리즘 외에도 권장 알고리즘 및 곡선을 구현하는 것을 고려해야 합니다.
+
 	서버는 [FIDO 개인 정보 보호 원칙]을 준수해야 합니다.
 
 	7. 전송 바인딩 프로필 (밑에 자세하게 설명)
+
 	이 섹션은 비규범적입니다.
 
 	7.1 소개
+	
 	이 문서에는 FIDO2 서버에 대한 비표준, 제안 된 REST API가 포함되어 있습니다.
+
 	이 인터페이스는 필수는 아니지만 FIDO2 적합성 테스트 도구에 사용되는 인터페이스로, 서버는 적합성 테스트 도구에 의해 이러한 메시지가 검증될 수 있도록 표준 방식으로 메시지를 수신하고 보낼 수 있습니다.
 
 	FIDO2 사양과 마찬가지로 여기에 설명된 인터페이스는 [WebAuthn] 사양에 크게 의존합니다.
+
 	이 문서의 명명법은 WebAuthn의 명명법을 따르며 서버와 송수신되는 메시지를 정의하기 위해 인터페이스 정의 언어(IDL)를 재사용한다.
 
 	이 문서는 등록, 인증 및 공통의 세 가지 섹션으로 나뉩니다.
+
 	등록 및 인증 섹션에는 이러한 작업과 관련된 메시지가 포함되며 공통 섹션에는 등록 및 인증에 공통적인 메시지 및 데이터 형식이 포함됩니다.
 
 </details>
@@ -150,13 +181,19 @@
 ![Sequence diagrams](https://github.com/dc-choi/WebAuthn_study/blob/master/img/reg.png)
 
 	이 절에서는 클라이언트와 서버 간에 교환되는 등록 메시지에 대한 간략한 개요와 이러한 메시지의 예, 그리고 메시지의 IDL 정의로 결론을 설명합니다.
+
 	등록은 WebAuthn 명명법으로 인해 "자격 증명 작성"이라고도 합니다.
 
 	등록 흐름은 총 4개의 메시지에 대해 두 단계로 나뉩니다.
+
 	첫 번째 단계는 클라이언트가 서버에 ServerPublicKeyCredentialCreationOptionsRequest을 보내고 서버가 ServerPublicKeyCredentialCreationOptionsResponse을 받는 "Credential Creation Options"을 검색하는 것입니다.
+
 	이러한 옵션은 WebAuthn의 navigator.credentials.create()와 함께 사용되며, 특히 MITM(Man in the Middle) 보호를 위해 서버가 반드시 생성해야 하는 문제에서 사용됩니다.
+
 	navigator.credentials.create()가 완료되면 해당 호출에서 생성된 사전이 ServerPublicKeyCredential로 서버로 다시 전송되고 응답 필드가 ServerAuthenticatorAttestationResponse로 설정됩니다.
+
 	ServerAuthenticatorAttestationResponse는 일반적인 ServerAuthenticatorResponse를 확장하며, 이는 아래 "공통" 섹션에 설명되어 있습니다.
+
 	서버는 [Webauthn] 사양의 섹션 7.1에 설명된 알고리즘에 따라 challenges, origins, signatures 및 나머지 서버 AuthenticatorAttenticationResponse의 유효성을 검사하고 적절한 서버 응답 메시지로 응답합니다.
 
 <details>
@@ -171,9 +208,9 @@
 		"username": "johndoe@example.com",
 		"displayName": "John Doe",
 		"authenticatorSelection": {
-		"residentKey": false,
-		"authenticatorAttachment": "cross-platform",
-		"userVerification": "preferred"
+			"residentKey": false,
+			"authenticatorAttachment": "cross-platform",
+			"userVerification": "preferred"
 		},
 		"attestation": "direct"
 	}
@@ -304,13 +341,13 @@
 
 		unsigned long timeout;
 		sequence<ServerPublicKeyCredentialDescriptor> excludeCredentials = [];
-		AuthenticatorSelectionCriteria               authenticatorSelection;
-		AttestationConveyancePreference              attestation = "none";
-		AuthenticationExtensionsClientInputs         extensions;
+		AuthenticatorSelectionCriteria authenticatorSelection;
+		AttestationConveyancePreference attestation = "none";
+		AuthenticationExtensionsClientInputs extensions;
 	};
 
 	required rp - PublicKeyCredentialRpEntity
-	id: rpId에 대한 고유 식별자입니다.
+	id: rpId에 대한 고유 식별자입니다. id는 현재 브라우저에 있는 도메인의 하위 집합이어야 합니다.
 
 	required user - ServerPublicKeyCredentialUserEntity
 	id: base64url 인코딩된 id 버퍼
@@ -512,12 +549,17 @@
 ![Sequence diagrams](https://github.com/dc-choi/WebAuthn_study/blob/master/img/auth.png)
 
 	이 절은 인증을 위해 서버와 교환된 메시지에 대한 개요로 시작한 후 메시지의 예를 보여 주며 메시지의 특정 IDL 정의로 끝납니다.
+
 	WebAuthn에서 사용되는 용어 때문에 "인증"을 "인증서 받기", "인증 요청 받기" 또는 "인증 어설션 받기"로 부르기도 한다.
 
 	등록에 대해 설명된 통신 흐름과 유사하게, 인증 흐름은 서버와 4개의 메시지를 교환해야 합니다.
+
 	첫 번째 메시지 쌍은 클라이언트에서 서버로 보내는 ServerPublicKeyCredentialGetOptionsRequest 형식의 요청이며, 서버는 해당 ServerPublicKeyCredentialGetOptionsResponse를 클라이언트에 반환합니다.
+
 	이 ServerPublicKeyCredentialGetOptionsResponse는 WebAuthn navigator.credentials.get() 호출에 대한 매개 변수로 사용됩니다.
+
 	navigator.credentials.get()의 결과는 클라이언트가 응답 필드가 ServerAuthenticatorAssertionResponse로 설정된 ServerPublicKeyCredential로 포맷되어 서버로 전송됩니다.
+	
 	서버는 [WebAuthn] 규격의 섹션 7.2에 따라 어설션을 검증하고 해당 서버 응답을 반환합니다.
 
 <details>
